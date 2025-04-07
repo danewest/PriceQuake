@@ -21,11 +21,11 @@
 
  - Connect to PostgreSQL database and:
 
- - Authenticate user credentials
+   - Authenticate user credentials
 
- - Store/retrieve watchlist items
+   - Store/retrieve watchlist items
 
- - Store notification settings
+   - Store notification settings
 
  - Trigger email notifications (SMTP) when stock prices hit thresholds
 
