@@ -1,13 +1,14 @@
 import yfinance as yf
 import psycopg2
+import os
 
 def get_connection():
     return psycopg2.connect(
-        dbname='stockdb',
-        user='admin',
-        password='adminpass',
-        host='localhost',
-        port='5432'
+        dbname=os.getenv("DB_NAME", "stockdb"),
+        user=os.getenv("DB_USER", "admin"),
+        password=os.getenv("DB_PASSWORD", "adminpass,"),
+        host=os.getenv("DB_HOST", "localhost"),
+        port=os.getenv("DB_PORT", "5432")
     )
 
 def get_apple():
