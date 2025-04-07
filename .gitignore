@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+
+# Environment
+.env
+
+# DBeaver local files (if any)
+*.dbeaver-data-sources.xml
+
+# Docker volumes (if manually dumped)
+docker-data/
+
+# OS junk
+.DS_Store
+Thumbs.db
