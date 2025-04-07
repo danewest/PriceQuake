@@ -1,7 +1,6 @@
 import socket
 import threading
 import psycopg2
-from database import get_stock_price
 
 HOST = '0.0.0.0'
 PORT = 65432
@@ -22,7 +21,7 @@ def handle_client(client_socket, address):
     # Example interaction -> Sending stock data
 
     cursor = connection.cursor()
-    cursor.execute("SELECT symbol, price FROM stocks LIMIT 5;")
+    cursor.execute("SELECT symbol, price FROM stocks WHERE symbol = 'AAPL';")
     for symbol, price in cursor.fetchall():
         message = f"{symbol}: ${price}\n"
         client_socket.sendall(message.encode())
