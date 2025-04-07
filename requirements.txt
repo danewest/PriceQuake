@@ -1,0 +1,4 @@
+Requirements:
+    1. FastAPI
+    2. psycopg2
+    3. uvicorn
