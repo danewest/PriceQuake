@@ -19,7 +19,7 @@ def get_stock_price(symbol: str):
             stock = yf.Ticker(symbol)
             price = stock.info.get("regularMarketPrice")
 
-            if (price == None):
+            if price is None:
                 return {"error": "Could not retrieve price for this symbol."}
             else:
                 return {"price": price}
