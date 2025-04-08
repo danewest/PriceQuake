@@ -2,3 +2,8 @@ Requirements:
     1. FastAPI
     2. psycopg2
     3. uvicorn
+    4. yfinance
+yfinance~=0.2.55
+psycopg2~=2.9.10
+psycopg2-binary~=2.9.10
+fastapi~=0.115.12
