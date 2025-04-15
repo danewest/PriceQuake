@@ -3,14 +3,15 @@ My semester project for Intro. to Computer Networks, this is an app that allows 
 fetch current prices of stocks or set the app up to notify them when different stocks meet varying criteria.
 
 # Server Setup
-To connect to the PostgreSQL database used by this project, use the following credentials:
+Will set up more once closer to completion.
+<!--To connect to the PostgreSQL database used by this project, use the following credentials:
 
 - **Host:** localhost
 - **Port:** 5432
 - **Database:** stockdb
 - **Username:** admin
 - **Password:** adminpass
-
+-->
 <!--
 DBeaver Setup
 
