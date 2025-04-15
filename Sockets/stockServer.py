@@ -1,6 +1,11 @@
 import socket
 import threading
 import psycopg2
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from App.services import stock_fetcher
 
 HOST = '0.0.0.0'
 PORT = 65432
@@ -14,8 +19,10 @@ connection = psycopg2.connect(
     port='5432'
 )
 
+# Handles incoming clients
 def handle_client(client_socket, address):
     print(f"[+] New connection from {address}")
+    # Welcome message
     client_socket.sendall(b"Welcome to PriceQuake!\n")
 
     try:
@@ -23,14 +30,19 @@ def handle_client(client_socket, address):
             data = client_socket.recv(1024).decode().strip()
             if not data:
                 break
+            # If a client's message starts with "GET:" it will create a variable
+            # with the text after it, then compare that text to the available stocks.
+            # If it matches an available one then the price will be fetched. If not
+            # it will let the error know that there has been a problem.
             if data.startswith("GET:"):
                 symbol = data.split(":", 1)[1].strip().upper()
                 cursor = connection.cursor()
-                cursor.execute("SELECT FROM stocks WHERE symbol = %s", (symbol,))
-                result = cursor.fetchone()
-                if result:
-                    price = result[0]
-                    message = f"{symbol}: ${price}\n"
+                if stock_fetcher.get_stock_price(symbol):
+                    cursor.execute("SELECT FROM stocks WHERE symbol = %s", (symbol,))
+                    result = cursor.fetchone()
+                    if result:
+                        price = result[0]
+                        message = f"{symbol}: ${price}\n"
                 else:
                     message = f"{symbol} not found in database.\n"
                 client_socket.sendall(message.encode())
