@@ -1,7 +1,7 @@
 import socket
 
 HOST = '127.0.0.1' # Change this to Debian server IP when testing cross-device
-PORT = 65432
+PORT = 5000
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.connect((HOST, PORT))
@@ -9,8 +9,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     welcome = s.recv(1024).decode()
     print(welcome)
 
+    print("Enter command ('GET:{Insert symbol here!}' or 'exit'): \n")
     while True:
-        cmd = input("Enter command (GET:<symbol> or 'exit'): ").strip()
+        cmd = input("> ").strip()
         if cmd.lower() == 'exit':
             break
 

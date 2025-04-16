@@ -3,12 +3,14 @@ import threading
 import psycopg2
 import sys
 import os
+
+# Adding project root to the path to allow for App imports
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from App.services import stock_fetcher
 
 HOST = '0.0.0.0'
-PORT = 65432
+PORT = 5000
 
 # Database connection
 connection = psycopg2.connect(
@@ -28,7 +30,9 @@ def handle_client(client_socket, address):
     try:
         while True:
             data = client_socket.recv(1024).decode().strip()
-            if not data:
+            # If there is no data or the user requests to exit
+            # then the connection ends.
+            if not data or data.lower() == 'exit':
                 break
             # If a client's message starts with "GET:" it will create a variable
             # with the text after it, then compare that text to the available stocks.
@@ -36,19 +40,20 @@ def handle_client(client_socket, address):
             # it will let the error know that there has been a problem.
             if data.startswith("GET:"):
                 symbol = data.split(":", 1)[1].strip().upper()
-                cursor = connection.cursor()
-                if stock_fetcher.get_stock_price(symbol):
-                    cursor.execute("SELECT FROM stocks WHERE symbol = %s", (symbol,))
-                    result = cursor.fetchone()
-                    if result:
-                        price = result[0]
-                        message = f"{symbol}: ${price}\n"
+                result = stock_fetcher.get_stock_price(symbol)
+
+                if "error" in result:
+                    response = f"Error: {result['error']}\n"
                 else:
-                    message = f"{symbol} not found in database.\n"
-                client_socket.sendall(message.encode())
+                    price = result["price"]
+                    response = f"{symbol}:'s current price: ${price:.2f}\n"
+
+                client_socket.sendall(response.encode())
             else:
                 client_socket.sendall(b"Unknown command.\n")
-
+        print(f"[-] Connection with {address} closed.\n")
+        client_socket.close()
+    # Error handling
     except ConnectionResetError:
         print(f"[-] Client {address}")
 
@@ -57,6 +62,7 @@ def start_server():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
         server_socket.bind((HOST, PORT))
         server_socket.listen()
+        print(f"[*] Listening on {HOST}:{PORT}")
 
         while True:
             client_socket, addr = server_socket.accept()

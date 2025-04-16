@@ -7,7 +7,7 @@ import yfinance as yf
 ALLOWED_STOCKS = [
     "AAPL", "GOOGL", "MSFT", "TSLA", "AMZN",
     "META", "NVDA", "NFLX", "INTC", "AMD",
-    "DIS", "BA", "JPM", "V", "MA"
+    "DIS", "BA", "JPM", "V", "MA", "RBLX"
 ]
 
 # Checks Yahoo Finance via the yfinance API for the current price of the requested stock.
@@ -27,4 +27,4 @@ def get_stock_price(symbol: str):
             return {"error": str(e)}
 
     else:
-        return {"error": "This stock is not supported by PriceQuake."}
+        return {"error": "This stock is not supported by PriceQuake or does not exist."}
