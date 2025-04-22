@@ -1,4 +1,3 @@
-from App.db.database import get_connection
 import yfinance as yf
 
 # List of permitted stocks. Rather than allowing the user to fetch
