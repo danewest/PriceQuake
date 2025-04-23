@@ -1,7 +1,10 @@
+# This file is for future use when I apply user functionality and stock history. For the scope of the project this is not needed
+
 import yfinance as yf
 import psycopg2
 import os
 
+# Connects to the PriceQuake database
 def get_connection():
     return psycopg2.connect(
         dbname=os.getenv("DB_NAME", "stockdb"),
@@ -11,6 +14,7 @@ def get_connection():
         port=os.getenv("DB_PORT", "5432")
     )
 
+# Test function to see if pulling information works using Apple stock
 def get_apple():
     conn = get_connection()
     cur = conn.cursor()
@@ -20,6 +24,7 @@ def get_apple():
     conn.close()
     return result[0] if result else None
 
+# Retrieve price of stock that matches given symbol
 def get_stock_price(symbol):
     conn = get_connection()
     cur = conn.cursor()
@@ -29,6 +34,7 @@ def get_stock_price(symbol):
     conn.close()
     return result[0] if result else None
 
+# Adds a new user to the PriceQuake database
 def add_user(username, password_hash, email):
     conn = get_connection()
     cur = conn.cursor()
