@@ -13,13 +13,13 @@ HOST = '0.0.0.0'
 PORT = 5000
 
 # Database connection
-connection = psycopg2.connect(
-    dbname='stockdb',
-    user='admin',
-    password='adminpass',
-    host='localhost',
-    port='5432'
-)
+#connection = psycopg2.connect(
+ #   dbname='stockdb',
+  #  user='admin',
+   # password='adminpass',
+    #host='localhost',
+    #port='5432'
+#)
 
 # Handles incoming clients
 def handle_client(client_socket, address):
@@ -46,7 +46,7 @@ def handle_client(client_socket, address):
                     response = f"Error: {result['error']}\n"
                 else:
                     price = result["price"]
-                    response = f"{symbol}:'s current price: ${price:.2f}\n"
+                    response = f"{symbol}'s current price: ${price:.2f}\n"
 
                 client_socket.sendall(response.encode())
             else:
