@@ -1,6 +1,5 @@
 # PriceQuake
-My semester project for Intro. to Computer Networks, this is an app that allows users to create profiles and either
-fetch current prices of stocks or set the app up to notify them when different stocks meet varying criteria.
+Stock analysis app that allows users to fetch current stock information, review history of different stocks, and forecast different stocks based on price history.
 
 # Server Setup
 Will set up more once closer to completion.

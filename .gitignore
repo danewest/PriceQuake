@@ -1,15 +1,108 @@
-# Python
-__pycache__/
-*.pyc
+##############################
+# Global Ignore — PriceQuake #
+##############################
 
-# Environment
-.env
-
-# Docker volumes (if manually dumped)
-docker-data/
-
-# OS junk
+# === OS / Editor Junk ===
 .DS_Store
 Thumbs.db
+*.swp
+*.swo
+*.tmp
+*.log
+*.bak
+*.old
+*.lock
 
+# === Node / Angular (Frontend) ===
+**/node_modules/
+**/dist/
+**/.angular/
+**/.cache/
+**/.env.local
+**/.npmrc
+**/package-lock.json
+
+# === .NET (Backend/API) ===
+**/bin/
+**/obj/
+**/out/
+**/.vs/
+**/Properties/launchSettings.json
+**/appsettings.Development.json
+**/appsettings.Local.json
+*.user
+*.suo
+*.userprefs
+
+# === Python (optional microservices / datafusion) ===
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+*.venv
+.env/
+venv/
+.env.bak
+.envrc
+
+# === Docker ===
+*.pid
+*.sock
+*.tar
+*.bak
+docker-compose.override.yml
+.dockerignore
+
+# === Environment / Secrets ===
+.env
+.env.*
+!env.example   # keep example env template
+secrets.json
+secret.yaml
+secret.txt
+
+# === Build / Release Artifacts ===
+*.exe
+*.dll
+*.so
+*.dylib
+*.pdb
+*.zip
+*.gz
+*.7z
+*.tar.gz
+
+# === IDE / Editor Config ===
 .idea/
+.vscode/
+*.iml
+*.sln.docstates
+*.project
+*.classpath
+*.cproject
+*.launch
+.settings/
+
+# === LaTeX / Docs ===
+*.aux
+*.bbl
+*.blg
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.pdf
+build/
+
+# === Git ===
+*.orig
+*.rej
+
+##############################
+# END ROOT GITIGNORE
+##############################

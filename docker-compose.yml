@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "4200:4200"
+    depends_on:
+      - api
+
+  api:
+    build: ./api
+    ports:
+      - "5000:80"
+    depends_on:
+      - datafusion
+
+  datafusion:
+    build: ./data-fusion
+    expose:
+      - "6000"
+
+  datastream:
+    build: ./data-stream
+    expose:
+      - "7000"
