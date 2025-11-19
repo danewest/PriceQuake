@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PriceQuake – Stock Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <!-- Chart.js for time-series visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+</head>
+<body>
+<header>
+    <h1>PriceQuake – Real-Time Stock Dashboard</h1>
+    <p>Select a stock, view its current price, and watch its trend over time.</p>
+</header>
+
+<main>
+    <section id="controls">
+        <div class="control-row">
+            <label for="symbol-select">Stock Ticker:</label>
+            <select id="symbol-select"></select>
+        </div>
+
+        <div class="control-row">
+            <button id="fetch-once-btn">Get Current Price</button>
+            <button id="start-stream-btn">Start Live Updates</button>
+            <button id="stop-stream-btn" disabled>Stop Live Updates</button>
+        </div>
+    </section>
+
+    <section id="summary">
+        <div class="card">
+            <h2>Current Price</h2>
+            <p id="current-price">$—</p>
+        </div>
+
+        <div class="card">
+            <h2>Simple Moving Average (SMA)</h2>
+            <p id="sma-value">Window: <span id="sma-window">10</span> points – <span id="sma-result">N/A</span></p>
+        </div>
+
+        <div class="card">
+            <h2>Fundamentals</h2>
+            <p><strong>Name:</strong> <span id="fund-longName">—</span></p>
+            <p><strong>Market Cap:</strong> <span id="fund-marketCap">—</span></p>
+            <p><strong>P/E (TTM):</strong> <span id="fund-pe">—</span></p>
+            <p><strong>Dividend Yield:</strong> <span id="fund-divYield">—</span></p>
+            <p><strong>52-Week Range:</strong>
+                <span id="fund-52wLow">—</span> – <span id="fund-52wHigh">—</span>
+            </p>
+        </div>
+    </section>
+
+    <section id="chart-section">
+        <h2>Price Over Time</h2>
+        <canvas id="price-chart"></canvas>
+        <p class="chart-note">
+            New data points are added whenever live updates are running.
+        </p>
+    </section>
+
+    <section id="log-section">
+        <h2>Event Log</h2>
+        <pre id="log"></pre>
+    </section>
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
