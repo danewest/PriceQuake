@@ -1,7 +1,19 @@
+<!-- Ticker Selector -->
+<mat-form-field appearance="fill" class="ticker-field">
+  <mat-label>Select Ticker</mat-label>
+  <mat-select [(value)]="selectedTicker" (selectionChange)="onTickerChange()">
+    <mat-option *ngFor="let t of tickers" [value]="t">
+      {{ t }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<!-- Chart -->
 <div class="chart-container">
-    <canvas baseChart
-            [data]="lineChartData"
-            [options]="lineChartOptions"
-            chartType="line">
-    </canvas>
+  <canvas
+    baseChart
+    [data]="lineChartData"
+    [options]="lineChartOptions"
+    chartType="line">
+  </canvas>
 </div>

@@ -1,9 +1,15 @@
-h1 {
-    text-align: center;
-    margin-top: 2rem;
-    color: #5c00d4;
+.app-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
-p {
-    text-align: center;
-    font-size: 1.2rem;
+
+.content-container {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.dashboard-card {
+    padding: 1rem;
 }

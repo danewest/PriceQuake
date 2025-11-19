@@ -1,10 +1,12 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
 import { StockTable } from './stock-table/stock-table';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, StockTable],
+  standalone: true,
+  imports: [MatToolbarModule, MatCardModule, StockTable],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
