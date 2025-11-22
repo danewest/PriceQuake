@@ -72,6 +72,39 @@ async function initSymbolDropdown() {
     }
 }
 
+async function loadHistoricalForRange() {
+    const symbol = document.getElementById("symbol-select").value;
+    const rangeEl = document.getElementById("range-select");
+    if (!symbol || !rangeEl) {
+        log("No symbol or range selected.");
+        return;
+    }
+
+    const rangeVal = rangeEl.value; // e.g. "6mo|1d"
+    const [period, interval] = rangeVal.split("|");
+
+    try {
+        const res = await fetch(
+            `${API_BASE}/historical-timeseries?symbol=${encodeURIComponent(symbol)}&period=${encodeURIComponent(period)}&interval=${encodeURIComponent(interval)}`
+        );
+        if (!res.ok) {
+            throw new Error(`Historical request failed: ${res.status}`);
+        }
+        const data = await res.json(); // { symbol, points: [...] }
+
+        if (data.points && Array.isArray(data.points) && data.points.length > 0) {
+            // Replace the chart data with the historical series
+            replaceDataSeries(data.points);
+            log(`Loaded historical data for ${symbol} (${period}, ${interval}) with ${data.points.length} points.`);
+        } else {
+            log("No historical data available for this selection.");
+        }
+    } catch (err) {
+        log(`Historical error: ${err.message}`);
+    }
+}
+
+
 function setCurrentPriceDisplay(price) {
     const el = document.getElementById("current-price");
     if (price == null) {
@@ -243,11 +276,11 @@ async function fetchAndRenderDashboardOnce() {
             points = data.timeseries.points;
         }
 
-        if (points && points.length > 0) {
-            // Backend has real history → use it
+        if (points && points.length > 2) {
+            // Backend has "real" history (at least 3 points) → use it
             replaceDataSeries(points);
         } else if (data.price && data.price.price != null) {
-            // No history yet → at least plot the latest price
+            // Backend history is too short → build a client-side history instead
             appendLatestPricePoint(data.price.price);
         }
 
@@ -311,5 +344,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("stop-stream-btn")
         .addEventListener("click", stopLiveUpdates);
+
+    const rangeSelect = document.getElementById("range-select");
+    if (rangeSelect) {
+        rangeSelect.addEventListener("change", loadHistoricalForRange);
 });
 
