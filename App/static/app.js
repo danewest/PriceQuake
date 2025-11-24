@@ -348,5 +348,6 @@ window.addEventListener("DOMContentLoaded", () => {
     const rangeSelect = document.getElementById("range-select");
     if (rangeSelect) {
         rangeSelect.addEventListener("change", loadHistoricalForRange);
+    }
 });
 
